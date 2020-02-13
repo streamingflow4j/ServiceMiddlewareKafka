@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:int-kafka="http://www.springframework.org/schema/integration/kafka"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+		http://www.springframework.org/schema/integration/kafka http://www.springframework.org/schema/integration/kafka/spring-integration-kafka.xsd
+		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		 http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- From STDIN To KAFKA -->
+	
+	<int:channel id="inputToKafka" />
+	<!-- Infrastructure -->
+    <int-kafka:outbound-channel-adapter id="kafkaOutboundChannelAdapter"
+                                    kafka-template="template"
+                                    auto-startup="false"
+                                    channel="inputToKafka"
+                                    topic="si.ceprule.queue"
+                                    sync="false"
+                                    message-key-expression="'bar'"
+                                    send-failure-channel="failures"
+                                    send-success-channel="successes"
+                                    error-message-strategy="ems"
+                                    partition-id-expression="2">
+   </int-kafka:outbound-channel-adapter>
+
+   <bean id="ems" class="org.springframework.integration.kafka.support.RawRecordHeaderErrorMessageStrategy" />
+
+	<int:channel id="failures" />
+
+	<int:channel id="successes" />
+    
+    <bean id="template" class="org.springframework.kafka.core.KafkaTemplate">
+        <constructor-arg>
+            <bean class="org.springframework.kafka.core.DefaultKafkaProducerFactory">
+                <constructor-arg>
+                    <map>
+                        <entry key="bootstrap.servers" value="localhost:9092" />
+                        <entry key="group.id" value="0" />
+                        <entry key="retries" value="1" />
+                        <entry key="batch.size" value="16384" />
+                        <entry key="linger.ms" value="1" />
+                        <entry key="buffer.memory" value="33554432" />
+                        <entry key="key.serializer"    value="org.apache.kafka.common.serialization.StringSerializer" />
+                        <entry key="value.serializer"  value="org.springframework.kafka.support.serializer.JsonSerializer" />
+                    </map>
+                </constructor-arg>
+            </bean>
+        </constructor-arg>
+    </bean>
+    
+</beans>
