@@ -13,7 +13,7 @@ Install and run kafka. More informations(https://kafka.apache.org/quickstart).
 4. Build the project using mvn clean install
 5. Run it using `java -cp target/ServiceMiddlewareCEPKafka.jar com.service.middleware.main.MainServiceMiddlewareKafka`
 
-## API examples:
+## API examples (Monitoring Temperature):
 Sending message to kafka queue 'queue.rule.cep' with the following scope.
 
 ### API elements
