@@ -8,8 +8,8 @@ Install and run kafka. More informations(https://kafka.apache.org/quickstart).
 1. Download the project file
 2. Unzip the project file
 3. Configure kafka.properties in src/main/resources:
-.queue.streaming.data=si.test.queue (Queue of data streming)
-.queue.rule.cep=si.ceprule.queue (Queue of data rules)
+- queue.streaming.data=si.test.queue (Queue of data streming)
+- queue.rule.cep=si.ceprule.queue (Queue of data rules)
 4. Build the project using mvn clean install
 5. Run it using `java -cp target/ServiceMiddlewareCEPKafka.jar com.service.middleware.main.MainServiceMiddlewareKafka`
 
