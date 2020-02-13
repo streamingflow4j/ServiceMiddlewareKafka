@@ -1,0 +1,51 @@
+2018-05-09 16:48:49 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-09 16:49:52 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 399ea3f7-131f-4b13-82c5-6427848555ef QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-09 16:56:13 INFO  MonitorEventHandler:96 - Runtime EPStatement Created ec50d37f-1b7d-4e1c-9457-be156486dcf0 QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-10 16:00:28 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-10 16:00:40 INFO  MonitorEventHandler:96 - Runtime EPStatement Created f93dd331-64b8-425b-ad7f-3c7c5ffd9fa4 QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-14 10:33:59 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-14 10:34:56 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 392d1156-d777-4bea-b5b9-f853d1263d0a QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-23 13:54:54 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-23 13:55:20 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 711ad67d-3961-41a1-a00a-f6b9524ad0e3 QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-23 14:12:27 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-23 14:12:27 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-23 14:12:27 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 45122ec0-1f2a-4487-9443-104de0e09278 QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-25 11:41:35 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-25 11:41:49 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 80e538d1-dfca-4ff8-bdf1-0b09f7fb7d4c QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-25 11:52:27 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-25 11:52:37 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 0fc4c4fe-e5a1-401e-9637-699ab021a077 QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-25 11:56:28 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-25 11:56:36 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 32dfba81-4062-46b2-96ac-33992b4c1bab QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-26 04:03:01 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-26 04:03:10 INFO  MonitorEventHandler:96 - Runtime EPStatement Created d1e95bb1-c082-4b56-af9c-4a70a73b7e59 QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-26 05:07:27 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-26 05:07:36 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 38dd3247-0804-44fb-85ff-9973f4bbf18a QUERY: select temperature from Termometro.win:time(5 sec)
+2018-05-26 06:17:15 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-05-26 06:18:06 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 2eca4fda-7550-43a0-b2ba-b89895854762 QUERY: select temperature from Termometro.win:time(5 sec)
+2018-07-24 01:57:03 INFO  MonitorEventHandler:231 - Add Event class =====> Termometro
+2018-07-24 02:19:23 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:19:56 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 6ae837b6-1c2b-45e4-8cbb-9a580c21583d QUERY: select value from VoltsPhase where cast(value, double) >= 4180.4
+2018-07-24 02:24:13 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:24:17 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 04fc5aa1-6bc0-4a8a-a754-8096f9821bb7 QUERY: select value from VoltsPhase where value >= 4180.4
+2018-07-24 02:24:17 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:24:29 INFO  MonitorEventHandler:96 - Runtime EPStatement Created a5deee37-0865-4193-b63a-9fe80ac58bc7 QUERY: select value from VoltsPhase where value >= 4180.4
+2018-07-24 02:28:25 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:28:37 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 82afb983-e0a4-4234-949a-8f08cdb38736 QUERY: select value from VoltsPhase where cast(value, double) >= 4180.4
+2018-07-24 02:31:45 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:32:49 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:33:24 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 19d98c2a-3a19-48c5-8b5d-5090118bb8bc QUERY: select value from VoltsPhase where cast(value, double) >= 4180.4
+2018-07-24 02:34:12 INFO  MonitorEventHandler:96 - Runtime EPStatement Created d0bf0988-b601-4844-95db-f115e2f1dfc6 QUERY: select value from VoltsPhase where cast(value, double) >= 4180.4
+2018-07-24 02:37:05 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:37:10 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:37:39 INFO  MonitorEventHandler:96 - Runtime EPStatement Created e11f5e76-2b1c-4334-85ae-ca553bd62135 QUERY: select value from VoltsPhase where value >= 4180.4
+2018-07-24 02:42:43 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:44:14 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:44:21 INFO  MonitorEventHandler:96 - Runtime EPStatement Created f4a0574f-e3cb-4e3d-afc7-4fbe9637ba76 QUERY: select metering from VoltsPhase where metering >= 4180.4
+2018-07-24 02:56:17 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-24 02:56:25 INFO  MonitorEventHandler:96 - Runtime EPStatement Created f8b7e349-db82-4e40-92ff-beda7618b66a QUERY: select metering from VoltsPhase where metering >= 4180.4
+2018-07-26 03:18:52 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-26 03:19:51 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-26 04:27:07 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-26 05:27:06 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-26 05:41:38 INFO  MonitorEventHandler:231 - Add Event class =====> VoltsPhase
+2018-07-26 05:41:48 INFO  MonitorEventHandler:96 - Runtime EPStatement Created 2122771b-d841-46bc-993e-9a9ffc13a902 QUERY: select metering from VoltsPhase where metering >= 4180.4
