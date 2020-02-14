@@ -19,7 +19,7 @@ public static void main(final String... args) throws InterruptedException {
 	   
 
 	    String payload = "";
-	    payload = "{\"contextElement\":{\"type\" : \"ADD_EVENT\",\"id\" : \"Termometro\","
+	    payload = "{\"contextElement\":{\"type\" : \"ADD_EVENT\",\"id\" : \"Termometer\","
 	    		+ "\"attributes\" : [{ \"name\"  : \"id\","
 	    		                    + "\"type\"  : \"String\","
 	    		                    + "\"value\" : \"0\"}"

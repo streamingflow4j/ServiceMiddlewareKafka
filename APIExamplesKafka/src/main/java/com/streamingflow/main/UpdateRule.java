@@ -26,7 +26,7 @@ public static void main(final String... args) throws InterruptedException {
 		                + "\"value\" : \"f9c9c1c1-d1ed-4f03-99cb-7083533ac2e0\"}"
 		                + "{\"name\"  : \"RULE\","
 			            + "\"type\"  : \"String\","
-			            + "\"value\" : \"select temperature from Termometro.win:time(10 sec)\"}"
+			            + "\"value\" : \"select temperature from Termometer.win:time(10 sec)\"}"
 			            + "{\"name\"  : \"QUEUE_1\","
     		            + "\"type\"  : \"QUEUE\","
     		            + "\"value\" : \"si.cep.queue\"}"

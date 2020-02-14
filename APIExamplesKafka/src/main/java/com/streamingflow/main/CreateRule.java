@@ -21,7 +21,7 @@ public static void main(final String... args) throws InterruptedException {
 	    payload = "{\"contextElement\":{\"type\" : \"RULECEP\",\"id\" : \"Rule7\","
 	    		+ "\"attributes\" : [{ \"name\"  : \"RULE\","
 	    		                    + "\"type\"  : \"String\","
-	    		                    + "\"value\" : \"select temperature from Termometro.win:time(5 sec)\"},"//ver a virgula aqui depois!!!!
+	    		                    + "\"value\" : \"select temperature from Termometer.win:time(5 sec)\"},"
 	    		                    + "{\"name\"  : \"QUEUE_1\","
 	    	    		            + "\"type\"  : \"QUEUE\","
 	    	    		            + "\"value\" : \"si.cep.queue\"}"

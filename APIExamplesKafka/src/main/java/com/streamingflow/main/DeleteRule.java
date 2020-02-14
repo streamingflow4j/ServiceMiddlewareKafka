@@ -10,9 +10,7 @@ public final class DeleteRule {
 	private DeleteRule() { }
 
 public static void main(final String... args) throws InterruptedException {
-        
-
-		
+	
 		@SuppressWarnings("resource")
 		final AbstractApplicationContext context =	new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
 		KafkaTemplate<String, String> kafkaTemplate = (KafkaTemplate) context.getBean("template");
