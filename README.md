@@ -14,7 +14,7 @@ Install and run kafka. More informations(https://kafka.apache.org/quickstart).
 5. Run it using `java -cp target/ServiceMiddlewareCEPKafka.jar com.service.middleware.main.MainServiceMiddlewareKafka`
 
 ## API examples (Monitoring Temperature):
-Sending message to kafka queue 'queue.rule.cep' with the following scope.
+Sending message to kafka queues with the following scope.
 
 ### API elements
 - ADD_EVENT ```add event type, every before specific rule```
