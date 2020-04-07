@@ -4,7 +4,7 @@ This project is a contextual middleware made with java, Spring Integration and E
 ## 1. Running the Kafka project
 Install and run kafka. More informations(https://kafka.apache.org/quickstart).
 
-## 5. Guide install
+## 2. Guide install
 1. Download the project file
 2. Unzip the project file
 3. Configure kafka.properties in src/main/resources:
@@ -13,7 +13,7 @@ Install and run kafka. More informations(https://kafka.apache.org/quickstart).
 4. Build the project using mvn clean install
 5. Run it using `java -cp target/ServiceMiddlewareCEPKafka.jar com.service.middleware.main.MainServiceMiddlewareKafka`
 
-## API examples (Monitoring Temperature):
+## 3. API examples (Monitoring Temperature):
 Sending message to kafka queues with the following scope.
 
 ### API elements
