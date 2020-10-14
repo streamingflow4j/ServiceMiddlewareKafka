@@ -7,7 +7,7 @@
 	<properties>
 		<spring.integration.version>5.0.3.RELEASE</spring.integration.version>
 		<log4j.version>1.2.17</log4j.version>
-		<junit.version>4.10</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<maven.compiler.source>10</maven.compiler.source>
 		<maven.compiler.target>10</maven.compiler.target>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
