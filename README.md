@@ -49,7 +49,7 @@ a) Defining a context element entity for event types:
 ```
 b) Creating context rules for event types:
 
--- post Kafka endpoint: http://localhost:8080/kafka/create/rule
+-- post Kafka endpoint: </endpoint-address-uri>/kafka/create/rule
 -- post Body:
 ```
 {
@@ -70,8 +70,8 @@ b) Creating context rules for event types:
 ```
 c) Updating context rules for event types:
 
--- post Kafka endpoint: http://localhost:8080/kafka/update/rule
--- post Body:
+-- put Kafka endpoint: </endpoint-address-uri>/kafka/update/rule
+-- put Body:
 ```
 {"contextElement":{
 "type" : "EDIT_RULECEP",
@@ -98,7 +98,7 @@ c) Updating context rules for event types:
 
 d) Delete a rule defined:
 
--- post Kafka endpoint: http://localhost:8080/kafka/delete/rule
+-- delete Kafka endpoint: </endpoint-address-uri>/kafka/delete/rule
 -- post Body:
 ```
 {"contextElement":{
@@ -116,7 +116,7 @@ d) Delete a rule defined:
 
 e) Scope of data producer:
 
--- post Kafka endpoint: http://localhost:8080/kafka/create/data
+-- post Kafka endpoint: </endpoint-address-uri>/kafka/create/data
 -- post Body:
 ```
 {"contextElement":{
