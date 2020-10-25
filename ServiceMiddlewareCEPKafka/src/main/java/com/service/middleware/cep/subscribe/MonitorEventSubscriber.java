@@ -80,8 +80,8 @@ public class MonitorEventSubscriber implements StatementSubscriber {
 	}
 
 	public String getPayload(String value) {
-		return "{\"contextElement\":{\"type\" : \"EventCEP\",\"id\" : \"" + String.valueOf(System.currentTimeMillis())
-				+ "\",\"attributes\" : [" + value + "]}}";
+		return "{\"type\" : \"EventCEP\",\"id\" : \"" + String.valueOf(System.currentTimeMillis())
+				+ "\",\"attributes\" : [" + value + "]}";
 	}
 
 	public String getRule() {
