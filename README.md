@@ -16,6 +16,9 @@ Install and run kafka. More informations(https://kafka.apache.org/quickstart).
 ## 3. API examples (Monitoring Temperature):
 Sending message to kafka queues with the following scope.
 
+Execute RestEndpointKafka Spring Boot application
+
+
 ### API elements
 - ADD_EVENT ```add event type, every before specific rule```
 - RULECEP   ```define addiction of a rule```
