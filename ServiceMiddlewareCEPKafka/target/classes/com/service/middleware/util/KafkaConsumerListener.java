@@ -1,20 +1,25 @@
 package com.service.middleware.util;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.listener.MessageListener;
 import org.springframework.messaging.handler.annotation.Payload;
 
 import com.service.middleware.cep.handler.MonitorEventHandler;
 import com.service.middleware.model.Entity;
-import com.service.middleware.model.ParserJson;
 
 public class KafkaConsumerListener implements MessageListener<Integer, String> {
 
 	@Autowired
 	MonitorEventHandler monitorEventHandler;
+	
+	ObjectMapper objectMapper = new ObjectMapper();
 
 	@Override
 	public void onMessage(ConsumerRecord<Integer, String> record) {
@@ -45,7 +50,12 @@ public class KafkaConsumerListener implements MessageListener<Integer, String> {
 				e.printStackTrace();
 			}
 		} else if (record.topic().equals(topicRule)) {
-			toModel(record.value());
+			try {
+				toModel(record.value());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			System.out.println("Error! No event or different queue names.");
 		}
@@ -57,7 +67,7 @@ public class KafkaConsumerListener implements MessageListener<Integer, String> {
 			if (monitorEventHandler == null) {
 				monitorEventHandler = (MonitorEventHandler) ApplicationContextProvider.getBean("monitorEventHandler");
 			}
-			Entity event = ParserJson.parseEntity(payload);
+			Entity event = objectMapper.readValue(payload, Entity.class); 
 			monitorEventHandler.handleEntity(event);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -66,8 +76,8 @@ public class KafkaConsumerListener implements MessageListener<Integer, String> {
 
 	}
 
-	public Entity toModel(@Payload String payload) {
-		Entity myEntity = ParserJson.parseEntity(payload);
+	public Entity toModel(@Payload String payload) throws JsonParseException, JsonMappingException, IOException {
+		Entity myEntity = objectMapper.readValue(payload, Entity.class); 
 		try {
 			if (monitorEventHandler == null) {
 				monitorEventHandler = (MonitorEventHandler) ApplicationContextProvider.getBean("monitorEventHandler");
