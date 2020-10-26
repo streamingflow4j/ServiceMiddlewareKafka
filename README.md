@@ -30,7 +30,7 @@ Execute RestEndpointKafka Spring Boot application
 
 a) Defining a context element entity for event types:
 
--- post Kafka endpoint: http://localhost:8080/kafka/create/event
+-- post Kafka endpoint: </endpoint-address-uri>/kafka/create/event
 -- post Body:
 ```
 {
