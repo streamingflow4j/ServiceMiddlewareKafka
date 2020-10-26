@@ -26,38 +26,38 @@ public class KafkaWebController {
 	KafkaSender kafkaSender;
 	
 	@ResponseStatus(HttpStatus.OK)
-	@PostMapping(value = "/create/data")
+	@PostMapping(value = "/data/create")
 	public String newData(@RequestBody Entity entity) throws JsonProcessingException {	
 		kafkaSender.sendData(entity);
 		return "Message sent to the Kafka JavaInUse Successfully";
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@PostMapping(value = "/create/event")
+	@PostMapping(value = "/event/create")
 	public String newEvent(@RequestBody Entity entity) throws JsonProcessingException {
 		kafkaSender.sendRule(entity);
 		return "Message sent to the Kafka JavaInUse Successfully";
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@PostMapping(value = "/create/rule")
+	@PostMapping(value = "/rule/create")
 	public String createRule(@RequestBody Entity entity) throws JsonProcessingException {
 		kafkaSender.sendRule(entity);
 		return "Message sent to the Kafka JavaInUse Successfully";
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@PutMapping(value = "/update/rule")
+	@PutMapping(value = "/rule/update")
 	public String updateRule(@RequestBody Entity entity) throws JsonProcessingException {
 		kafkaSender.sendRule(entity);
 		return "Message sent to the Kafka JavaInUse Successfully";
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@DeleteMapping(value = "/delete/rule")
+	@DeleteMapping(value = "/rule/delete")
 	public String deleteRule(@RequestBody Entity entity) throws JsonProcessingException {
 		kafkaSender.sendRule(entity);
 		return "Message sent to the Kafka JavaInUse Successfully";
 	}
-
+	
 }
