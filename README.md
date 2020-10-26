@@ -76,7 +76,7 @@ c) Updating context rules for event types:
 -- put Kafka endpoint: </endpoint-address-uri>/kafka/update/rule
 -- put Body:
 ```
-{"contextElement":{
+{
 "type" : "EDIT_RULECEP",
 "id" : "Rule3",
 "attributes" : [
@@ -96,7 +96,7 @@ c) Updating context rules for event types:
 "value" : "si.cep.queue"
 }
 ]
-}}
+}
 ```
 
 d) Delete a rule defined:
@@ -104,7 +104,7 @@ d) Delete a rule defined:
 -- delete Kafka endpoint: </endpoint-address-uri>/kafka/delete/rule
 -- post Body:
 ```
-{"contextElement":{
+{
 "type" : "DEL_RULE",
 "id" : "DelRule3",
 "attributes" : [
@@ -114,7 +114,7 @@ d) Delete a rule defined:
 "value" : "d081f1bc-4d68-4427-bd47-59684e480327"
 }
 ]
-}}
+}
 ```
 
 e) Scope of data producer:
@@ -122,7 +122,7 @@ e) Scope of data producer:
 -- post Kafka endpoint: </endpoint-address-uri>/kafka/create/data
 -- post Body:
 ```
-{"contextElement":{
+{
 "type" : "Termometer",
 "id" : "1",
 "attributes" : [
@@ -132,13 +132,13 @@ e) Scope of data producer:
 "value" : "2"
 }
 ]
-}}
+}
 ```
 
 f) Scope of data Consumer:
 
 ```
-{"contextElement":{
+{
 "type" : "EventCEP",
 "id" : "1582033487619",
 "attributes" : [
@@ -148,5 +148,5 @@ f) Scope of data Consumer:
 "value":"13.0"
 }
 ]
-}}
+}
 ```
