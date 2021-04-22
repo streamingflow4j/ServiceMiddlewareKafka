@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "a7e92d7d-3b2b-45b8-bacb-ebd5bf610942",
+		"name": "KafkaRestAPIExamples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/kafka/data/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"type\" : \"Termometer\",\n\"id\" : \"1\",\n\"attributes\" : [\n{ \n\"name\" : \"temperature\",\n\"type\" : \"Double\",\n\"value\" : \"2\"\n}\n]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rabbitmq/data/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitmq",
+						"data",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/kafka/rule/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"type\" : \"RULECEP\", \n\"id\" : \"Rule7\",\n\"attributes\" : [\n{ \"name\"  : \"RULE\",\n\"type\"  : \"String\",\n\"value\" : \"select temperature from Termometer.win:time(5 sec)\"\n},\n{\n\"name\"  : \"QUEUE_1\",\n\"type\"  : \"QUEUE\",\n\"value\" : \"si.cep.queue\" \n}\n]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rabbitmq/rule/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitmq",
+						"rule",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/kafka/rule/update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"type\" : \"EDIT_RULECEP\",\n\"id\" : \"Rule3\",\n\"attributes\" : [\n{ \n\"name\"  : \"RULE_ID\",\n\"type\"  : \"String\",\n\"value\" : \"568c03de-6159-4b8b-8747-93f8c7ffd786\"\n},\n{\n\"name\"  : \"RULE\", \n\"type\"  : \"String\",  \n\"value\" : \"select temperature from Termometer.win:time(10 sec)\"\n},\n{\n\"name\"  : \"QUEUE_1\",\n\"type\"  : \"QUEUE\",\n\"value\" : \"si.cep.queue\"\n}\n]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rabbitmq/rule/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitmq",
+						"rule",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/kafka/rule/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"type\" : \"DEL_RULE\",\n\"id\" : \"DelRule3\",\n\"attributes\" : [\n{\n\"name\"  : \"RULE_ID\",\n\"type\"  : \"String\",\n\"value\" : \"568c03de-6159-4b8b-8747-93f8c7ffd786\"\n}\n]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rabbitmq/rule/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitmq",
+						"rule",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/kafka/event/create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"type\" : \"ADD_EVENT\",\n\"id\" : \"Termometer\",\n\"attributes\" : [\n{ \n\"name\"  : \"id\",\n\"type\"  : \"String\",\n\"value\" : \"0\"\n},\n{\n\"name\" : \"temperature\",\n\"type\"  : \"Double\",\n\"value\" : \"0\"\n}\n]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/kafka/create/event",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"kafka",
+						"create",
+						"event"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
