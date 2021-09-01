@@ -4,6 +4,7 @@ package com.producer.kafka.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 import org.springframework.messaging.support.GenericMessage;
@@ -23,20 +24,23 @@ public class KafkaSender {
 	
 	@Autowired
 	private KafkaTemplate<String, String>  kafkaTemplate;
-	
-	private static final String QUEUE_DATA = "si.queue.teste";
-	
-	private static final String QUEUE_RULE = "si.ceprule.queue";
 
 	private ObjectMapper objectMapper = new ObjectMapper();
+	
 	private String payload = "";
 	
+	private final Environment env;
+	
+	public KafkaSender(Environment env) {
+		this.env = env;
+	}
+	
 	public void sendData(Entity entity) throws JsonProcessingException {
-		this.send(entity,QUEUE_DATA); 
+		this.send(entity,getQUEUE_DATA()); 
 	}	
 	
     public void sendRule(Entity entity) throws JsonProcessingException {
-    	this.send(entity,QUEUE_RULE);    
+    	this.send(entity,getQUEUE_RULE());    
 	}
     
     public void send(Entity entity, String queue) throws JsonProcessingException {
@@ -48,6 +52,19 @@ public class KafkaSender {
 
 		System.out.println("Sent msg = " + payload.toString());
 	    
+	}
+    
+    public String load(String propertyName) { 
+		return env.getRequiredProperty(propertyName); 
+	}
+    
+    public String getQUEUE_DATA() {
+		return load("spring.rabbitmq.data.queue");
+		
+	}
+
+	public String getQUEUE_RULE() {
+		return load("spring.rabbitmq.rule.queue");		
 	}
 
 }
