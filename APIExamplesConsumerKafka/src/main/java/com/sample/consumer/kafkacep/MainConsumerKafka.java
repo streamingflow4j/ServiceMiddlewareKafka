@@ -11,7 +11,8 @@ public final class MainConsumerKafka {
 
 		@SuppressWarnings("resource")
 		final AbstractApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
- 	    System.out.println("------");
+		//System.setProperty("server.port", "8081");
+		System.out.println("------");
  	    
 		context.registerShutdownHook();
         System.out.println("ConsumerCepQueue");

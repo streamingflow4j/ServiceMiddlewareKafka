@@ -30,7 +30,7 @@ Execute RestEndpointKafka Spring Boot application
 
 a) Defining a context element entity for event types:
 
--- post Kafka endpoint: </endpoint-address-uri>/kafka/create/event
+-- post Kafka endpoint: </endpoint-address-uri>/kafka/event/create
 -- post Body:
 ```
 {
@@ -52,7 +52,7 @@ a) Defining a context element entity for event types:
 ```
 b) Creating context rules for event types:
 
--- post Kafka endpoint: </endpoint-address-uri>/kafka/create/rule
+-- post Kafka endpoint: </endpoint-address-uri>/kafka/rule/create
 -- post Body:
 ```
 {
@@ -73,7 +73,7 @@ b) Creating context rules for event types:
 ```
 c) Updating context rules for event types:
 
--- put Kafka endpoint: </endpoint-address-uri>/kafka/update/rule
+-- put Kafka endpoint: </endpoint-address-uri>/kafka/rule/update
 -- put Body:
 ```
 {
@@ -101,7 +101,7 @@ c) Updating context rules for event types:
 
 d) Delete a rule defined:
 
--- delete Kafka endpoint: </endpoint-address-uri>/kafka/delete/rule
+-- delete Kafka endpoint: </endpoint-address-uri>/kafka/rule/delete
 -- post Body:
 ```
 {
@@ -119,7 +119,7 @@ d) Delete a rule defined:
 
 e) Scope of data producer:
 
--- post Kafka endpoint: </endpoint-address-uri>/kafka/create/data
+-- post Kafka endpoint: </endpoint-address-uri>/kafka/data/create
 -- post Body:
 ```
 {
