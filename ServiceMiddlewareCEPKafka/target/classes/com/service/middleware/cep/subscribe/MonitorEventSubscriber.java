@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -25,7 +27,7 @@ public class MonitorEventSubscriber implements StatementSubscriber {
 	private static KafkaTemplate<String, String> kafkaTemplate = null;
 
 	/** Logger */
-	//private static Logger LOG = LoggerFactory.getLogger(MonitorEventSubscriber.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MonitorEventSubscriber.class);
 
 	/**
 	 * {@inheritDoc}

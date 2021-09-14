@@ -7,6 +7,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.listener.MessageListener;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -17,9 +19,11 @@ import com.service.middleware.model.Entity;
 public class KafkaConsumerListener implements MessageListener<Integer, String> {
 
 	@Autowired
-	MonitorEventHandler monitorEventHandler;
+	private MonitorEventHandler monitorEventHandler;
 	
-	ObjectMapper objectMapper = new ObjectMapper();
+	private static final Logger log = LoggerFactory.getLogger(KafkaConsumerListener.class);
+	
+	private ObjectMapper objectMapper = new ObjectMapper();
 
 	@Override
 	public void onMessage(ConsumerRecord<Integer, String> record) {
@@ -57,7 +61,7 @@ public class KafkaConsumerListener implements MessageListener<Integer, String> {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("Error! No event or different queue names.");
+			log.error("Error! ===>> No event or different queue names.");
 		}
 	}
 
@@ -71,7 +75,7 @@ public class KafkaConsumerListener implements MessageListener<Integer, String> {
 			monitorEventHandler.handleEntity(event);
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e);
+			log.error("Error! ===>> "+ e);
 		}
 
 	}
@@ -85,7 +89,7 @@ public class KafkaConsumerListener implements MessageListener<Integer, String> {
 			monitorEventHandler.createRequestMonitorExpression(myEntity);
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e);
+			log.error("Error! ===>> "+ e);
 		}
 
 		return myEntity;
