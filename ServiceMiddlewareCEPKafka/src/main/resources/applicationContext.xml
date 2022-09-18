@@ -19,7 +19,7 @@
 		</property>
 	</bean>
 
-	<!-- Defina os parâmetros do consumidor -->
+	<!-- Definae consumer parameters -->
 	<bean id="consumerProperties" class="java.util.HashMap">
 		<constructor-arg>
 			<map>
@@ -36,7 +36,7 @@
 		</constructor-arg>
 	</bean>
 
-	<!-- Criar consumerFactory bean -->
+	<!-- Create consumerFactory bean -->
 	<bean id="consumerFactory"
 		class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
 		<constructor-arg>
@@ -44,10 +44,10 @@
 		</constructor-arg>
 	</bean>
 
-	<!-- A implementação real da classe de consumo de mensagens -->
+	<!-- Real class of messages consuming -->
 	<bean id="messageListernerConsumerService" class="com.service.middleware.util.KafkaConsumerListener" />
 
-	<!-- informações de configuração de contêiner de consumidor -->
+	<!-- config of container of consumer -->
 	<bean id="containerProperties_data"	class="org.springframework.kafka.listener.config.ContainerProperties">
 		<constructor-arg>
 			<list>
@@ -58,7 +58,7 @@
 		<property name="messageListener" ref="messageListernerConsumerService" />
 	</bean>
 
-	<!-- create messageListenerContainer bean, use, só precisa injetar o bean -->
+	<!-- create messageListenerContainer bean -->
 	<bean id="messageListenerContainer_data" class="org.springframework.kafka.listener.KafkaMessageListenerContainer"
 		init-method="doStart">
 		<constructor-arg ref="consumerFactory" />
