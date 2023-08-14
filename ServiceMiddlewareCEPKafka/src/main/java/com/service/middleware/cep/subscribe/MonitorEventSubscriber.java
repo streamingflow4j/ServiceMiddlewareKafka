@@ -4,27 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.service.middleware.model.Attribute;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Component;
 
-import com.service.middleware.model.Attributes;
+
 import com.service.middleware.model.CollectType;
 import com.service.middleware.model.Entity;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
+@RequiredArgsConstructor
 public class MonitorEventSubscriber implements StatementSubscriber {
 
 	String rule = "";
 	Map<String, String> eventUpdate = new HashMap<String, String>();
 	Entity myEntity;
 
-	private static AbstractApplicationContext context = null;
-
-	private static KafkaTemplate<String, String> kafkaTemplate = null;
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
 
 	/** Logger */
 	private static final Logger LOG = LoggerFactory.getLogger(MonitorEventSubscriber.class);
@@ -56,13 +57,6 @@ public class MonitorEventSubscriber implements StatementSubscriber {
 		@SuppressWarnings("resource")
 		String payload = getPayload(sb.toString());
 
-		if (context == null) {
-			context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-		}
-		if (kafkaTemplate == null) {	
-			kafkaTemplate = (KafkaTemplate) context.getBean("template");
-		}
-
 		for (Entry<String, String> entry : eventUpdate.entrySet()) {
 
 			if (entry.getKey().equals(CollectType.ADD_RULE_ATTR_QUEUE.getName())) {
@@ -71,9 +65,6 @@ public class MonitorEventSubscriber implements StatementSubscriber {
 
 		}
 		kafkaTemplate.sendDefault(payload);
-		
-
-		context.registerShutdownHook();
 
 	}
 
@@ -109,7 +100,7 @@ public class MonitorEventSubscriber implements StatementSubscriber {
 	public String setMyEntity(Entity myEntity) {
 		this.myEntity = myEntity;
 		Map<String, String> update = new HashMap<String, String>();
-		for (Attributes rule : myEntity.getAttributes()) {
+		for (Attribute rule : myEntity.getAttributes()) {
 			if (verifyDelRule(myEntity)) {
 				if (rule.getName().equals(CollectType.RULE_ATTR_ID.getName())) {
 					return rule.getValue();

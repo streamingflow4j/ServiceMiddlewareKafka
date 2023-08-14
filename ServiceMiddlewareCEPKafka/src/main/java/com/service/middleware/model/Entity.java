@@ -1,15 +1,28 @@
 package com.service.middleware.model;
 
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.IOException;
 import java.util.List;
 
 public class Entity {
+	
 	private String id;
 	private String type;
-	private List<Attributes> attributes;
+	private List<Attribute> attributes;
 
 	public Entity() {
+	}
+
+	public Entity(String type, String id, List<Attribute> attributes) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.type = type;
+		this.attributes = attributes;
 	}
 
 	public String getType() {
@@ -28,12 +41,20 @@ public class Entity {
 		this.id = id;
 	}
 
-	public List<Attributes> getAttributes() {
+	public List<Attribute> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(List<Attributes> attributes) {
+	public void setAttributes(List<Attribute> attributes) {
 		this.attributes = attributes;
+	}
+
+	@JsonCreator
+	public static Entity create(String jsonString) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		Entity entity = null;
+		entity = objectMapper.readValue(jsonString, Entity.class);
+		return entity;
 	}
 
 }

@@ -8,8 +8,10 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +20,10 @@ import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
 import com.service.middleware.cep.subscribe.MonitorEventSubscriber;
-import com.service.middleware.model.Attributes;
+import com.service.middleware.model.Attribute;
 import com.service.middleware.model.CollectType;
 import com.service.middleware.model.Entity;
-import com.service.middleware.util.ApplicationContextProvider;
+
 import com.service.middleware.util.RunTimeEPStatement;
 
 import net.sf.cglib.beans.BeanGenerator;
@@ -36,8 +38,9 @@ public class MonitorEventHandler implements InitializingBean {
 	private EPServiceProvider epService;
 	private EPStatement monitorEventStatement;
 
-	final static Logger logger = Logger.getLogger(MonitorEventHandler.class);
+	private final static Logger logger = LoggerFactory.getLogger(MonitorEventHandler.class);
 
+    @Autowired
 	private MonitorEventSubscriber monitorEventSubscriber;
 
 	private static ConcurrentHashMap<UUID, RunTimeEPStatement> queriesEpl = new ConcurrentHashMap<UUID, RunTimeEPStatement>();
@@ -66,8 +69,7 @@ public class MonitorEventHandler implements InitializingBean {
 		if (myEntity.getType().equals(CollectType.ADD_EVENT_TYPE.getName())) {
 			createBeans(myEntity);
 		} else {
-			monitorEventSubscriber = (MonitorEventSubscriber) ApplicationContextProvider
-					.getBean("monitorEventSubscriber");
+
 			verify = monitorEventSubscriber.setMyEntity(myEntity);
 			if (verify.equals(CollectType.NONE.getName())) {
 				String epl = monitorEventSubscriber.getStatement();
@@ -82,7 +84,9 @@ public class MonitorEventHandler implements InitializingBean {
 						if (etEps != null) {
 							etEps.destroy();
 							queriesEpl.put(id, new RunTimeEPStatement(monitorEventStatement, myEpl));
+							logger.info("==============================================================");
 							logger.info("Runtime EPStatement Updated. id: " + id);
+							logger.info("==============================================================");
 						}
 
 					} else {
@@ -92,7 +96,9 @@ public class MonitorEventHandler implements InitializingBean {
 					UUID uuid = UUID.randomUUID();
 					queriesEpl.put(uuid, new RunTimeEPStatement(monitorEventStatement, epl));
 					if (logger.isInfoEnabled()) {
+						logger.info("==============================================================");
 						logger.info("Runtime EPStatement Created. id: " + uuid + " QUERY: " + epl);
+						logger.info("==============================================================");
 					}
 				}
 			} else if (myEntity.getType().equals(CollectType.DEL_RULE_TYPE.getName())) {
@@ -103,7 +109,7 @@ public class MonitorEventHandler implements InitializingBean {
 	}
 
 	public String getEditEpl(Entity entity) {
-		for (Attributes rule : entity.getAttributes()) {
+		for (Attribute rule : entity.getAttributes()) {
 			if (rule.getName().equals(CollectType.RULE_ATTR_NAME.getName())) {
 				return rule.getValue();
 			}
@@ -113,7 +119,7 @@ public class MonitorEventHandler implements InitializingBean {
 	}
 
 	public String getEntityId(Entity entity) {
-		for (Attributes rule : entity.getAttributes()) {
+		for (Attribute rule : entity.getAttributes()) {
 			if (rule.getName().equals(CollectType.RULE_ATTR_ID.getName())) {
 				return rule.getValue();
 			}
@@ -143,7 +149,7 @@ public class MonitorEventHandler implements InitializingBean {
 		if (bean != null) {
 			Method setter = bean.getClass().getMethod("setId", Double.class);
 			setter.invoke(bean, Double.parseDouble(event.getId()));
-			for (Attributes attr : event.getAttributes()) {
+			for (Attribute attr : event.getAttributes()) {
 				setter = bean.getClass().getMethod(
 						"set" + attr.getName().substring(0, 1).toUpperCase() + attr.getName().substring(1),
 						Double.class);
@@ -154,14 +160,16 @@ public class MonitorEventHandler implements InitializingBean {
 		}
 	}
 
-    // function for edit rule cep 
+    // function for remove rule cep
 	public boolean removeStatement(UUID id) {
 		RunTimeEPStatement etEps = queriesEpl.get(id);
 		if (etEps != null) {
 			queriesEpl.remove(id);
 			etEps.destroy();
 			if (logger.isInfoEnabled()) {
+				logger.info("==============================================================");
 				logger.info("Runtime EPStatement Destroyed " + id);
+				logger.info("==============================================================");
 			}
 			return true;
 		}
@@ -174,7 +182,9 @@ public class MonitorEventHandler implements InitializingBean {
 		if (etEps != null) {
 			etEps = runTimeEPStatement;
 			queriesEpl.put(id, runTimeEPStatement);
+			logger.info("==============================================================");
 			logger.info("Runtime EPStatement Updated " + id);
+			logger.info("==============================================================");
 			return true;
 		}
 		return false;
@@ -219,14 +229,16 @@ public class MonitorEventHandler implements InitializingBean {
 	public void createBeans(Entity entity) throws Exception {
 		String className = entity.getId();
 		final Map<String, Class<?>> properties = new HashMap<String, Class<?>>();
-		for (Attributes attr : entity.getAttributes()) {
+		for (Attribute attr : entity.getAttributes()) {
 			properties.put(attr.getName(), Double.class);
 		}
 		
 		final Class<?> beanClass = createBeanClass(className, properties);
 		Object myBean = cHM.get(className);
 		epService.getEPAdministrator().getConfiguration().addEventType(className, myBean.getClass());
+		logger.info("==============================================================");
 		logger.info("Add Event class =====> " + className);
+		logger.info("==============================================================");
 	}
     
 }
