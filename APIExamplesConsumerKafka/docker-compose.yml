@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  consumer-kafka:
+    container_name: consumer-kafka
+    build:
+      context: ./target
+      dockerfile: ./Dockerfile
+    ports:
+      - "8082:8082"
+    image: consumer-kafka:latest
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092
+      KAFKA_CONSUMER_QUEUE: si.cep.queue
+      JAR_NAME: ConsumerApplicationKafka-0.0.1-SNAPSHOT.jar
+    networks:
+      - broker-kafka
+
+networks:
+  broker-kafka:
+    external: true

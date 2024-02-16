@@ -1,0 +1,3 @@
+
+Δ
+java:S6804"­Either replace the "@Value" annotation with a standard field initialization, use "${propertyName}" to inject a property or use "#{expression}" to evaluate a SpEL expression.(ξ‰εί
