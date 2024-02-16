@@ -1,72 +1,22 @@
 version: '3'
 
 services:
-
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    networks:
-      - broker-kafka
-    ports:
-      - ${DOCKER_HOST_IP:-127.0.0.1}:2181:2181
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    networks:
-      - broker-kafka
-    restart: unless-stopped
-    depends_on:
-      - zookeeper
-    ports:
-      - ${DOCKER_HOST_IP:-127.0.0.1}:9092:9092
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS:
-        INTERNAL://kafka:29092,
-        EXTERNAL://localhost:9092
-      KAFKA_ADVERTISED_LISTENERS:
-        INTERNAL://kafka:29092,
-        EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:
-        INTERNAL:PLAINTEXT,
-        EXTERNAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_LOG_RETENTION_HOURS: 12
-
-  kafdrop:
-    image: obsidiandynamics/kafdrop:latest
-    networks:
-      - broker-kafka
-    depends_on:
-      - kafka
-    ports:
-      - 19000:9000
-    environment:
-      KAFKA_BROKERCONNECT: kafka:29092
-
-  middleware-kafka:
-    container_name: middleware-kafka
+  endpoint-kafka:
+    container_name: endpoint-kafka
     build:
       context: ./target
       dockerfile: ./Dockerfile
-    depends_on:
-      - kafka
-      - zookeeper
     ports:
-      - "8081:8081"
-    image: middleware-kafka:latest
+      - "8080:8080"
+    image: endpoint-kafka:latest
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
-      # KAFKA_STREAMING_QUEUE: si.test.queue
-      # KAFKA_RULE_QUEUE: si.ceprule.queue
-      JAR_NAME: ServiceMiddlewareCEPKafka-0.0.1-SNAPSHOT.jar
+      KAFKA_STREAMING_QUEUE: si.test.queue
+      KAFKA_RULE_QUEUE: si.ceprule.queue
+      JAR_NAME: RestEndPointKafka-0.0.1-SNAPSHOT.jar
     networks:
       - broker-kafka
 
 networks:
   broker-kafka:
-    driver: bridge
+    external: true

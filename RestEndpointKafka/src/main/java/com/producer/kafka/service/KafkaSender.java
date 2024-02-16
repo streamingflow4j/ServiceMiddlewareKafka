@@ -16,11 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.producer.kafka.model.Entity;
 
-import lombok.extern.slf4j.Slf4j;
-
-
 @Service
-@Slf4j
 public class KafkaSender {
 	
 	@Autowired
