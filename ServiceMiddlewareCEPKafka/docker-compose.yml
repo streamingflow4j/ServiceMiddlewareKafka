@@ -50,8 +50,8 @@ services:
     image: middleware-kafka:latest
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
-      # KAFKA_STREAMING_QUEUE: si.test.queue
-      # KAFKA_RULE_QUEUE: si.ceprule.queue
+      KAFKA_STREAMING_QUEUE: si.test.queue
+      KAFKA_RULE_QUEUE: si.ceprule.queue
       JAR_NAME: ServiceMiddlewareCEPKafka-0.0.1-SNAPSHOT.jar
     networks:
       - broker-kafka
