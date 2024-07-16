@@ -1,1 +1,2 @@
-com\example\demo\ConsumerApplicationKafkaTests.class
+com\consumer\kafka\ConsumerApplicationKafkaTests.class
+com\consumer\kafka\TestContextInitializer.class

@@ -1,2 +1,2 @@
-com\example\consumer\kafka\ConsumerApplicationKafka.class
-com\example\consumer\kafka\listener\TopicListener.class
+com\consumer\kafka\ConsumerApplicationKafka.class
+com\consumer\kafka\listener\TopicListener.class

@@ -66,7 +66,7 @@ public class MonitorEventHandler implements InitializingBean {
 
 	public void createRequestMonitorExpression(Entity myEntity) throws Exception {
 		String verify = "";
-		if (myEntity.getType().equals(CollectType.ADD_EVENT_TYPE.getName())) {
+		if (myEntity.getType().equals(CollectType.EVENT_CREATE_TYPE.getName())) {
 			createBeans(myEntity);
 		} else {
 
@@ -84,9 +84,7 @@ public class MonitorEventHandler implements InitializingBean {
 						if (etEps != null) {
 							etEps.destroy();
 							queriesEpl.put(id, new RunTimeEPStatement(monitorEventStatement, myEpl));
-							logger.info("==============================================================");
 							logger.info("Runtime EPStatement Updated. id: " + id);
-							logger.info("==============================================================");
 						}
 
 					} else {
@@ -96,9 +94,7 @@ public class MonitorEventHandler implements InitializingBean {
 					UUID uuid = UUID.randomUUID();
 					queriesEpl.put(uuid, new RunTimeEPStatement(monitorEventStatement, epl));
 					if (logger.isInfoEnabled()) {
-						logger.info("==============================================================");
 						logger.info("Runtime EPStatement Created. id: " + uuid + " QUERY: " + epl);
-						logger.info("==============================================================");
 					}
 				}
 			} else if (myEntity.getType().equals(CollectType.DEL_RULE_TYPE.getName())) {
@@ -167,9 +163,7 @@ public class MonitorEventHandler implements InitializingBean {
 			queriesEpl.remove(id);
 			etEps.destroy();
 			if (logger.isInfoEnabled()) {
-				logger.info("==============================================================");
 				logger.info("Runtime EPStatement Destroyed " + id);
-				logger.info("==============================================================");
 			}
 			return true;
 		}
@@ -182,9 +176,7 @@ public class MonitorEventHandler implements InitializingBean {
 		if (etEps != null) {
 			etEps = runTimeEPStatement;
 			queriesEpl.put(id, runTimeEPStatement);
-			logger.info("==============================================================");
 			logger.info("Runtime EPStatement Updated " + id);
-			logger.info("==============================================================");
 			return true;
 		}
 		return false;
