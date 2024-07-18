@@ -1,4 +1,9 @@
-# About this project (ServiceMiddlewareKafka)
+# StreamingFlow4J: Event Driven Framework with inference engine for Complex Event Processing
+
+## 🤔 What is it used for? 
+Add Complex Event Processing with Event-Driven, CQRS, Message Route to Java applications.
+
+## About this project (ServiceMiddlewareKafka)
 This project is a contextual middleware made with java, Spring Integration and EsperCEP.
 
 ## 1. Running the Kafka project
@@ -164,8 +169,12 @@ f) Scope of data Consumer:
 ]
 }
 ```
+## ⭐ Give us a star!
 
-## 4. License and Citation
+Like what you see? Please consider giving this a star (★)!
+
+## 🏷️ License and Citation
+
 The code is available under Apache License.
 If you find this project helpful in your research, please cite this work at
 
