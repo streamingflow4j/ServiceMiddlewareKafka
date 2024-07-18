@@ -4,7 +4,7 @@
 Add Complex Event Processing with Event-Driven, CQRS, Message Route to Java applications.
 
 ## About this project (ServiceMiddlewareKafka)
-This project is a contextual middleware made with java, Spring Integration and EsperCEP.
+This project is a contextual middleware made with java, Spring Boot and EsperCEP.
 
 ## 1. Running the Kafka project
 Install and run kafka. More informations(https://kafka.apache.org/quickstart).
