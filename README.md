@@ -20,9 +20,7 @@ Install and run kafka. More informations(https://kafka.apache.org/quickstart).
 
 ## 3. API examples (Monitoring Temperature):
 Sending message to kafka queues with the following scope.
-
 Execute RestEndpointKafka Spring Boot application
-
 
 ### API elements
 In Event ID is defined as one Unique Identifier name and
@@ -54,7 +52,7 @@ a) Defining a context element entity for event types:
 ```
 {
 "type" : "EVENT_CREATE",
-"id" : "Termometer",
+"id" : "Thermometer",
 "attributes" : [
 { 
 "name"  : "id",
@@ -80,7 +78,7 @@ b) Creating context rules for event types:
 "attributes" : [
 { "name"  : "RULE_QUERY",   --Attribute for rule definition
 "type"  : "String",
-"value" : "select temperature from Termometer.win:time(5 sec)"
+"value" : "select temperature from Thermometer.win:time(5 sec)"
 },
 {
 "name"  : "QUEUE_1",
@@ -107,7 +105,7 @@ c) Updating context rules for event types:
 {
 "name"  : "RULE_QUERY",    --Attribute for rule update
 "type"  : "String",  
-"value" : "select temperature from Termometer.win:time(10 sec)"
+"value" : "select temperature from Thermometer.win:time(10 sec)"
 },
 {
 "name"  : "QUEUE_1",
@@ -142,7 +140,7 @@ e) Scope of data producer:
 -- post Body:
 ```
 {
-"type" : "Termometer",
+"type" : "Thermometer",
 "id" : "1",
 "attributes" : [
 { 
