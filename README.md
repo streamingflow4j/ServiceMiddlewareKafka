@@ -12,11 +12,28 @@ Install and run kafka. More informations(https://kafka.apache.org/quickstart).
 ## 2. Guide install
 1. Download the project file
 2. Unzip the project file
-3. Configure kafka.properties in src/main/resources:
-- queue.streaming.data=si.test.queue (Queue of data streming)
-- queue.rule.cep=si.ceprule.queue (Queue of data rules)
-4. Build the project using mvn clean install
-5. Run it using `java -cp target/ServiceMiddlewareCEPKafka.jar com.service.middleware.main.MainServiceMiddlewareKafka`
+3. Configure docker-compose.yml:
+ - queue.streaming.data=si.test.queue (Queue of data streming)
+ - queue.rule.cep=si.ceprule.queue (Queue of data rules)
+
+4. Using Docker follow the steps:
+ 
+ a)docker network create broker-kafka
+ 
+ b)StreamingFlow4JKafka:
+ - mvn clean install
+ - docker build --tag streamingflow4j-kafka .
+ - docker compose -f  docker-compose.yml up --detach
+ 
+ c)RestEndpointKafka:
+ - mvn clean install
+ - docker build --tag endpoint-kafka . 
+ - docker compose -f  docker-compose.yml up --detach
+
+ d)APIExamplesConsumerKafka: 
+ - mvn clean install
+ - docker build --tag consumer-kafka .
+ - docker compose -f  docker-compose.yml up --detach
 
 ## 3. API examples (Monitoring Temperature):
 Sending message to kafka queues with the following scope.

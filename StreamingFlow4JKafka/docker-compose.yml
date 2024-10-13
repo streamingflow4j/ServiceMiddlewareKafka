@@ -37,8 +37,8 @@ services:
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
 
-  middleware-kafka:
-    container_name: middleware-kafka
+  streamingflow4j-kafka:
+    container_name: streamingflow4j-kafka
     build:
       context: ./target
       dockerfile: ./Dockerfile
@@ -47,7 +47,7 @@ services:
       - zookeeper
     ports:
       - "8081:8081"
-    image: middleware-kafka:latest
+    image: streamingflow4j-kafka:latest
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
       KAFKA_STREAMING_QUEUE: si.test.queue
