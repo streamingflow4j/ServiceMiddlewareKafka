@@ -9,7 +9,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 	<groupId>com.service.middleware</groupId>
-	<artifactId>ServiceMiddlewareCEPKafka</artifactId>
+	<artifactId>StreamingFlow4JKafka</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ServiceMiddlewareCEPKafka</name>
 	<description>Service Middleware CEP Kafka</description>
