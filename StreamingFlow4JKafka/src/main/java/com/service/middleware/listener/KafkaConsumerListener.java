@@ -36,7 +36,7 @@ public class KafkaConsumerListener {
 	@Value("${queue.streaming.data}")
 	private String topicNameStreaming;
 
-	@KafkaListener(topics = "${queue.rule.cep}", groupId = "0")
+	@KafkaListener(topics = "${queue.rule.cep}", groupId = "1")
 	public void consumeRule(ConsumerRecord<String, String> payload){
 		log.info("Tópico: {}", topicNameQueue);
 		log.info("key: {}", payload.key());
@@ -52,7 +52,7 @@ public class KafkaConsumerListener {
 		}
 	}
 
-	@KafkaListener(topics = "${queue.streaming.data}", groupId = "group_id")
+	@KafkaListener(topics = "${queue.streaming.data}", groupId = "0")
 	public void consumeStreaming(ConsumerRecord<String, String> payload){
 		log.info("Tópico: {}", topicNameStreaming);
 		log.info("key: {}", payload.key());

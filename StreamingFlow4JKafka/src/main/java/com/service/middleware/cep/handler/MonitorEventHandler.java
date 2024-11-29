@@ -1,13 +1,14 @@
 package com.service.middleware.cep.handler;
 
+import java.awt.*;
+import java.beans.EventHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.espertech.esper.client.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,10 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.espertech.esper.client.Configuration;
-import com.espertech.esper.client.EPServiceProvider;
-import com.espertech.esper.client.EPServiceProviderManager;
-import com.espertech.esper.client.EPStatement;
 import com.service.middleware.cep.subscribe.MonitorEventSubscriber;
 import com.service.middleware.model.Attribute;
 import com.service.middleware.model.CollectType;
@@ -34,12 +31,11 @@ import net.sf.cglib.core.Predicate;
 @Scope(value = "singleton")
 public class MonitorEventHandler implements InitializingBean {
 
+	private final static Logger logger = LoggerFactory.getLogger(MonitorEventHandler.class);
+
 	/** Esper cep service */
 	private EPServiceProvider epService;
 	private EPStatement monitorEventStatement;
-
-	private final static Logger logger = LoggerFactory.getLogger(MonitorEventHandler.class);
-
     @Autowired
 	private MonitorEventSubscriber monitorEventSubscriber;
 
@@ -49,6 +45,8 @@ public class MonitorEventHandler implements InitializingBean {
 	private AtomicLong eventsHandledMicroseconds;
 	private Configuration config;
 	int count = 0;
+
+	static String listEpl;
 
 	/**
 	 * Configure Esper Statement(s).
@@ -69,36 +67,46 @@ public class MonitorEventHandler implements InitializingBean {
 		if (myEntity.getType().equals(CollectType.EVENT_CREATE_TYPE.getName())) {
 			createBeans(myEntity);
 		} else {
-
 			verify = monitorEventSubscriber.setMyEntity(myEntity);
 			if (verify.equals(CollectType.NONE.getName())) {
-				String epl = monitorEventSubscriber.getStatement();
+				String epl = myEntity.getAttributes().get(0).getValue().toString();
+				if (myEntity.getType().equals(CollectType.EDIT_RULE_TYPE.getName())) {
+					epl = monitorEventSubscriber.getStatement();
+				}
 				monitorEventStatement = epService.getEPAdministrator().createEPL(epl);
 				monitorEventStatement.setSubscriber(monitorEventSubscriber);
-
+				////Edit event query
 				if (myEntity.getType().equals(CollectType.EDIT_RULE_TYPE.getName())) {
 					String myEpl = getEditEpl(myEntity);
 					if (!myEpl.equals(CollectType.NONE.getName())) {
 						UUID id = UUID.fromString(getEntityId(myEntity));
 						RunTimeEPStatement etEps = queriesEpl.get(id);
+
 						if (etEps != null) {
 							etEps.destroy();
 							queriesEpl.put(id, new RunTimeEPStatement(monitorEventStatement, myEpl));
+							monitorEventSubscriber.editQueueDest(id.toString(), myEntity);
+							logger.info("==============================================================");
 							logger.info("Runtime EPStatement Updated. id: " + id);
+							logger.info("==============================================================");
 						}
-
 					} else {
 						logger.error("Error in query attribute");
 					}
 				} else {
+					////Add evento query
 					UUID uuid = UUID.randomUUID();
 					queriesEpl.put(uuid, new RunTimeEPStatement(monitorEventStatement, epl));
+					monitorEventSubscriber.setQueueMapping(uuid.toString(),myEntity);
 					if (logger.isInfoEnabled()) {
+						logger.info("==============================================================");
 						logger.info("Runtime EPStatement Created. id: " + uuid + " QUERY: " + epl);
+						logger.info("==============================================================");
 					}
 				}
 			} else if (myEntity.getType().equals(CollectType.DEL_RULE_TYPE.getName())) {
 				removeStatement(UUID.fromString(verify));
+				monitorEventSubscriber.removeQueueDest(UUID.fromString(verify).toString());
 			}
 
 		}
@@ -109,7 +117,6 @@ public class MonitorEventHandler implements InitializingBean {
 			if (rule.getName().equals(CollectType.RULE_ATTR_NAME.getName())) {
 				return rule.getValue();
 			}
-
 		}
 		return CollectType.NONE.getName();
 	}
@@ -152,7 +159,11 @@ public class MonitorEventHandler implements InitializingBean {
 				setter.invoke(bean, Double.parseDouble(attr.getValue()));
 			}
 
+			//monitorEventSubscriber.setMyEvent(event);
 			epService.getEPRuntime().sendEvent(bean);
+			getListenerRule();
+			monitorEventSubscriber.sendEvent();
+
 		}
 	}
 
@@ -163,14 +174,16 @@ public class MonitorEventHandler implements InitializingBean {
 			queriesEpl.remove(id);
 			etEps.destroy();
 			if (logger.isInfoEnabled()) {
+				logger.info("==============================================================");
 				logger.info("Runtime EPStatement Destroyed " + id);
+				logger.info("==============================================================");
 			}
 			return true;
 		}
 		return false;
 	}
 
-    // function for edit rule cep 
+    // function for edit rule cep #deprecated
 	public boolean editStatement(UUID id, RunTimeEPStatement runTimeEPStatement) {
 		RunTimeEPStatement etEps = queriesEpl.get(id);
 		if (etEps != null) {
@@ -196,11 +209,11 @@ public class MonitorEventHandler implements InitializingBean {
 
 	public Class<?> createBeanClass(
 			/* fully qualified class name */
-			final String className,
+		final String className,
 			/* bean properties, name -> type */
-			final Map<String, Class<?>> properties) {
+		final Map<String, Class<?>> properties) {
 
-		final BeanGenerator beanGenerator = new BeanGenerator();
+		BeanGenerator beanGenerator = new BeanGenerator();
 
 		/* use our own hard coded class name instead of a real naming policy */
 		beanGenerator.setNamingPolicy(new NamingPolicy() {
@@ -218,7 +231,7 @@ public class MonitorEventHandler implements InitializingBean {
 	}
 	// function for create rule cep 
 	@SuppressWarnings("unused")
-	public void createBeans(Entity entity) throws Exception {
+	public void createBeans(Entity entity) {
 		String className = entity.getId();
 		final Map<String, Class<?>> properties = new HashMap<String, Class<?>>();
 		for (Attribute attr : entity.getAttributes()) {
@@ -232,5 +245,23 @@ public class MonitorEventHandler implements InitializingBean {
 		logger.info("Add Event class =====> " + className);
 		logger.info("==============================================================");
 	}
-    
+
+	public String getListenerRule(){
+		for (String listener : epService.getEPAdministrator().getStatementNames()) {
+			EPStatement GSignal = epService.getEPAdministrator().getStatement(listener);
+			GSignal.addListener(new UpdateListener() {
+				@Override
+				public void update(EventBean[] newEvents, EventBean[] oldEvents) {
+					if (newEvents == null) {
+						return;
+					}
+					listEpl = GSignal.getText();
+					monitorEventSubscriber.setStatement(listEpl);
+				}
+			});
+
+		}
+		return listEpl;
+	}
+
 }
